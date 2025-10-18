@@ -1,5 +1,5 @@
 // Módulo de entrada do Chip-8
-// Gerencia o teclado hexadecimal (16 teclas) e mapeia para teclas físicas
+// Gerencia o teclado hexadecimal e mapeia para teclas físicas
 
 #pragma once
 #include <cstdint>
