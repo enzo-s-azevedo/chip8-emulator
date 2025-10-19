@@ -8,7 +8,7 @@
 
 // Construtor: inicializa CPU e seus componentes
 CPU::CPU(Memory& memory, Display& display, Input& input, Audio& audio)
-    : memory(memory), display(display), input(input), audio(audio), clock_speed(500) {
+    : memory(memory), display(display), input(input), audio(audio), clock_speed(Config::CPU::DEFAULT_CLOCK_SPEED) {
     std::srand(static_cast<unsigned>(std::time(nullptr)));
     reset();
 }
@@ -65,7 +65,7 @@ void CPU::execute_opcode(uint16_t opcode) {
         case 0x0000: execute_0xxx(opcode); break;
         case 0x1000: PC = nnn; break; // 1NNN: JP addr
         case 0x2000: // 2NNN: CALL addr
-            if (SP >= 16) {
+            if (SP >= Config::CPU::STACK_SIZE) {
                 std::cerr << "[CPU] ERRO: Stack overflow!" << std::endl;
                 return;
             }

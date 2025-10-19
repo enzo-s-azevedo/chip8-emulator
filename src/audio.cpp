@@ -2,22 +2,16 @@
 // Simula o beep usando SDL2
 
 #include "../include/audio.h"
+#include "../include/config.h"
 #include <iostream>
 #include <cstring>
-
-// Parâmetros do beep
-const int SAMPLE_RATE = 44100;
-const int AMPLITUDE = 128;
-const int FREQUENCY = 440; 
-const int CHANNELS = 1;
-const int BUFFER_SIZE = 1024;
 
 // Gera o som do Chip-8 criando uma onda quadrada quando o Sound Timer está ativo
 void Audio::audio_callback(void* userdata, Uint8* stream, int len) {
     static int phase = 0;
     for (int i = 0; i < len; ++i) {
-        stream[i] = (phase < SAMPLE_RATE / (2 * FREQUENCY)) ? (AMPLITUDE * 2) : 0;
-        phase = (phase + 1) % (SAMPLE_RATE / FREQUENCY);
+        stream[i] = (phase < Config::Audio::SAMPLE_RATE / (2 * Config::Audio::FREQUENCY)) ? (Config::Audio::AMPLITUDE * 2) : 0;
+        phase = (phase + 1) % (Config::Audio::SAMPLE_RATE / Config::Audio::FREQUENCY);
     }
 }
 
@@ -29,10 +23,10 @@ Audio::Audio() : device(0), is_playing(false) {
     }
     SDL_AudioSpec want, have;
     SDL_zero(want);
-    want.freq = SAMPLE_RATE;
+    want.freq = Config::Audio::SAMPLE_RATE;
     want.format = AUDIO_U8;
-    want.channels = CHANNELS;
-    want.samples = BUFFER_SIZE;
+    want.channels = Config::Audio::CHANNELS;
+    want.samples = Config::Audio::BUFFER_SIZE;
     want.callback = audio_callback;
     want.userdata = nullptr;
     device = SDL_OpenAudioDevice(nullptr, 0, &want, &have, 0);

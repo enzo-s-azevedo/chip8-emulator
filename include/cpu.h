@@ -4,6 +4,7 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include "config.h"
 #include "memory.h"
 #include "display.h"
 #include "input.h"

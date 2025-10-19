@@ -5,14 +5,15 @@
 #include <cstdint>
 #include <vector>
 #include <SDL2/SDL.h>
+#include "config.h"
 
 class Display {
 public:
-    static constexpr int WIDTH = 64;
-    static constexpr int HEIGHT = 32;
+    static constexpr int WIDTH = Config::Display::WIDTH;
+    static constexpr int HEIGHT = Config::Display::HEIGHT;
 
     // Cria o display, inicializando SDL e a janela
-    Display(int scale = 10);
+    Display(int scale = Config::Display::DEFAULT_SCALE);
     ~Display();
 
     // Limpa a tela

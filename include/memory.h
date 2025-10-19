@@ -1,20 +1,19 @@
 // Módulo de gerenciamento de memória do Chip-8
 // Gerencia os 4KB de RAM, carrega ROMs e inicializa sprites hexadecimais
 
-#ifndef MEMORY_H
-#define MEMORY_H
-
+#pragma once
 #include <cstdint>
 #include <string>
 #include <array>
+#include "config.h"
 
 class Memory {
 public:
-    static constexpr uint16_t MEMORY_SIZE = 4096;           // 4KB de memória total
-    static constexpr uint16_t PROGRAM_START = 0x200;        // Endereço inicial padrão para ROMs
-    static constexpr uint16_t FONT_START = 0x000;           // Endereço inicial dos sprites
-    static constexpr uint16_t FONT_SIZE = 80;               // Tamanho total dos sprites (16 chars × 5 bytes)
-    static constexpr uint16_t RESERVED_END = 0x1FF;         // Fim da área reservada
+    static constexpr uint16_t MEMORY_SIZE = Config::Memory::SIZE;
+    static constexpr uint16_t PROGRAM_START = Config::Memory::PROGRAM_START;
+    static constexpr uint16_t FONT_START = Config::Memory::FONT_START;
+    static constexpr uint16_t FONT_SIZE = Config::Memory::FONT_SIZE;
+    static constexpr uint16_t RESERVED_END = Config::Memory::RESERVED_END;
 
     // Inicializa a memória zerada e carrega os sprites hexadecimais
     Memory();
