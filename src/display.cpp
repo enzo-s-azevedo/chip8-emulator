@@ -25,7 +25,8 @@ Display::Display(int scale) : scale(scale), pixels(WIDTH * HEIGHT, 0), window(nu
         SDL_Quit();
         throw std::runtime_error("Falha ao criar renderer SDL");
     }
-    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING,
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING,
                                WIDTH, HEIGHT);
     if (!texture) {
         std::cerr << "[Display] ERRO: Não foi possível criar textura SDL: " << SDL_GetError() << std::endl;
