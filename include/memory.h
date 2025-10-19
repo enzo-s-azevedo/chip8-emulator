@@ -47,4 +47,3 @@ private:
     bool is_valid_address(uint16_t address) const;
 };
 
-#endif

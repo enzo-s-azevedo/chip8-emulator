@@ -83,8 +83,12 @@ void CPU::execute_opcode(uint16_t opcode) {
         case 0xB000: PC = nnn + V[0]; break; // BNNN: JP V0, addr
         case 0xC000: V[x] = (std::rand() % 256) & kk; break; // CXKK: RND Vx, byte
         case 0xD000: { // DXYN: DRW Vx, Vy, nibble
-            uint8_t* sprite = const_cast<uint8_t*>(&memory.read(I));
-            bool collision = display.draw_sprite(V[x], V[y], sprite, n);
+            // Lê N bytes a partir de I e desenha como sprite na tela
+            uint8_t sprite_buf[15] = {0};
+            for (uint8_t row = 0; row < n; ++row) {
+                sprite_buf[row] = memory.read(I + row);
+            }
+            bool collision = display.draw_sprite(V[x], V[y], sprite_buf, n);
             V[0xF] = collision ? 1 : 0;
             break;
         }
